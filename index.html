@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="src/style.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Play&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/fa9799e83a.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container border p-4 mt-3 rounded">
+      <img src="media/moon.png" />
+      <form id="search-bar">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            autocomplete="off"
+            class="form-control"
+            id="search-location"
+            placeholder="Search location"
+          />
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div class="input-group-append">
+            <button
+              id="geolocation-button"
+              class="btn btn-outline-secondary"
+              type="button"
+            >
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <h4>
+        <span id="current-date">Wednesday 2nd September, 9:14pm</span>
+        -
+        <span id="current-description" class="weatherDescription"
+          >Scattered Showers</span
+        >
+      </h4>
+
+      <p class="temperatureUnit">
+        <a href="" id="celsius" class="unit">°C</a>
+        |
+        <a href="" id="fahrenheit" class="unit">°F</a>
+      </p>
+
+      <div class="row 1">
+        <div class="col-5 currentLocation">
+          <h1 id="searched-location">Derby</h1>
+        </div>
+        <div class="col-7 current temperature">
+          <h1 id="current-temperature">14°C</h1>
+        </div>
+      </div>
+
+      <div class="row 2">
+        <div class="col-5 current details">
+          <ul>
+            <li>
+              <span id="current-temp-max" class="current TempMax">17°c</span> |
+              <span id="current-temp-min" class="current TempMin">14°c</span>
+            </li>
+            <li id="current-humidity">Humidity: 30%</li>
+            <li id="current-windspeed">Windspeed: 18km/h</li>
+          </ul>
+        </div>
+        <div class="col-7">
+          <h2 id="current-weather-icon">
+            <i class="fas fa-cloud"></i>
+          </h2>
+        </div>
+      </div>
+
+      <div class="row sixDaySummary">
+        <div class="col-md-2">
+          <div class="card text-center">
+            <div class="card-body">
+              <h6 class="weekDay">Thu</h6>
+              <p class="card-text">
+                <i class="fas fa-cloud-sun-rain"></i>
+                <br />
+                <small> <strong>17°c</strong> | 14°c </small>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="card text-center">
+            <div class="card-body">
+              <h6 class="weekDay">Fri</h6>
+              <p class="card-text">
+                <i class="fas fa-cloud"></i>
+                <br />
+                <small> <strong>17°c</strong> | 13°c </small>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="card text-center">
+            <div class="card-body">
+              <h6 class="weekDay">Sat</h6>
+              <p class="card-text">
+                <i class="fas fa-cloud-sun"></i>
+                <br />
+                <small> <strong>17°c</strong> | 9°c </small>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="card text-center">
+            <div class="card-body">
+              <h6 class="weekDay">Sun</h6>
+              <p class="card-text">
+                <i class="fas fa-cloud-showers-heavy"></i>
+                <br />
+                <small> <strong>18°c</strong> | 16°c </small>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="card text-center">
+            <div class="card-body">
+              <h6 class="weekDay">Mon</h6>
+              <p class="card-text">
+                <i class="fas fa-cloud-sun"></i>
+                <br />
+                <small> <strong>18°c</strong> | 16°c </small>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="card text-center">
+            <div class="card-body">
+              <h6 class="weekDay">Tue</h6>
+              <p class="card-text">
+                <i class="fas fa-cloud-sun"></i>
+                <br />
+                <small> <strong>22°c</strong> | 16°c </small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      Coded by
+      <a href="https://www.linkedin.com/in/heather-kirwan-581a4580">
+        Heather Kirwan
+      </a>
+      <br />
+    </footer>
+    <script src="src/index.js"></script>
+  </body>
+</html>
