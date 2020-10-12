@@ -53,6 +53,16 @@ function showCurrentWeather(response) {
   let showWindspeed = document.querySelector("#current-windspeed");
 
   showWindspeed.innerHTML = `Windspeed: ${currentWindspeed}km/h`;
+
+  let currentWeatherIcon = document.querySelector("#current-weather-icon");
+  currentWeatherIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  currentWeatherIcon.setAttribute(
+    "alt",
+    `${response.data.wearger[0].description}`
+  );
 }
 
 function showSearchedLocation(event) {
@@ -98,7 +108,7 @@ function useGeolocation() {
 function convertToCelsius(event) {
   event.preventDefault();
   let currentTemperature = document.querySelector("#current-temperature");
-  let temperature = 14;
+  let temperature = currentTemperature.value;
   currentTemperature.innerHTML = `${temperature}°C`;
 }
 
