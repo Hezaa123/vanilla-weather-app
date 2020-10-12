@@ -37,13 +37,18 @@ div.container {
   opacity: 0.6;
 }
 
-.temperatureUnit {
+.temperature-unit {
   font-size: 14px;
   margin: 0;
 }
 
 .unit:hover {
   text-decoration: none;
+}
+
+.unit.active {
+  color: #000000;
+  cursor: default;
 }
 
 #current-weather-icon {

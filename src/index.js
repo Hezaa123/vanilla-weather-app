@@ -29,18 +29,18 @@ function showCurrentWeather(response) {
 
   showDescription.innerHTML = `${currentDescription}`;
 
-  let currentTemperature = Math.round(response.data.main.temp);
   let showCurrentTemperature = document.querySelector("#current-temperature");
+  currentCelsiusTemperature = Math.round(response.data.main.temp);
 
-  showCurrentTemperature.innerHTML = `${currentTemperature}°C`;
+  showCurrentTemperature.innerHTML = `${currentCelsiusTemperature}°`;
 
-  let currentTempMax = Math.round(response.data.main.temp_max);
   let showCurrentMax = document.querySelector("#current-temp-max");
+  currentTempMax = Math.round(response.data.main.temp_max);
 
   showCurrentMax.innerHTML = `${currentTempMax}°`;
 
-  let currentTempMin = Math.round(response.data.main.temp_min);
   let showCurrentMin = document.querySelector("#current-temp-min");
+  currentTempMin = Math.round(response.data.main.temp_min);
 
   showCurrentMin.innerHTML = `${currentTempMin}°`;
 
@@ -61,7 +61,7 @@ function showCurrentWeather(response) {
   );
   currentWeatherIcon.setAttribute(
     "alt",
-    `${response.data.wearger[0].description}`
+    `${response.data.weather[0].description}`
   );
 }
 
@@ -108,15 +108,34 @@ function useGeolocation() {
 function convertToCelsius(event) {
   event.preventDefault();
   let currentTemperature = document.querySelector("#current-temperature");
-  let temperature = currentTemperature.value;
-  currentTemperature.innerHTML = `${temperature}°C`;
+  let currentMax = document.querySelector("#current-temp-max");
+  let currentMin = document.querySelector("#current-temp-min");
+
+  currentTemperature.innerHTML = `${Math.round(currentCelsiusTemperature)}°`;
+  currentMax.innerHTML = `${Math.round(currentTempMax)}°`;
+  currentMin.innerHTML = `${Math.round(currentTempMin)}°`;
+
+  degreesFahrenheit.classList.remove("active");
+  degreesCelsius.classList.add("active");
 }
 
 function convertToFahrenheit(event) {
   event.preventDefault();
   let currentTemperature = document.querySelector("#current-temperature");
-  let temperature = Math.round((14 * 9) / 5 + 32);
-  currentTemperature.innerHTML = `${temperature}°F`;
+  let currentMax = document.querySelector("#current-temp-max");
+  let currentMin = document.querySelector("#current-temp-min");
+  let fahrenheitTemperature = Math.round(
+    (currentCelsiusTemperature * 9) / 5 + 32
+  );
+  let fahrenheitMax = Math.round((currentTempMax * 9) / 5 + 32);
+  let fahrenheitMin = Math.round((currentTempMin * 9) / 5 + 32);
+
+  currentTemperature.innerHTML = `${fahrenheitTemperature}°`;
+  currentMax.innerHTML = `${fahrenheitMax}°`;
+  currentMin.innerHTML = `${fahrenheitMin}°`;
+
+  degreesCelsius.classList.remove("active");
+  degreesFahrenheit.classList.add("active");
 }
 
 let todaysDate = document.querySelector("#current-date");
@@ -129,8 +148,12 @@ let searchBar = document.querySelector("#search-bar");
 
 searchBar.addEventListener("submit", showSearchedLocation);
 
-let degreesCelsius = document.querySelector("#celsius");
-let degreesFahrenheit = document.querySelector("#fahrenheit");
+let currentCelsiusTemperature = null;
+let currentTempMax = null;
+let currentTempMin = null;
+
+let degreesCelsius = document.querySelector("#celsius-link");
+let degreesFahrenheit = document.querySelector("#fahrenheit-link");
 
 degreesCelsius.addEventListener("click", convertToCelsius);
 degreesFahrenheit.addEventListener("click", convertToFahrenheit);
