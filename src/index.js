@@ -1,4 +1,5 @@
-function formatDate(date) {
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
   let days = [
     "Sunday",
     "Monday",
@@ -8,22 +9,15 @@ function formatDate(date) {
     "Friday",
     "Saturday",
   ];
-  let currentDay = days[now.getDay()];
+  let currentDay = days[date.getDay()];
 
-  let currentHour = now.getHours();
-  if (currentHour < 10) {
-    currentHour = `0${currentHour}`;
-  }
-
-  let currentMinute = now.getMinutes();
-  if (currentMinute < 10) {
-    currentMinute = `0${currentMinute}`;
-  }
-
-  return `${currentDay}, ${currentHour}:${currentMinute}`;
+  return `${currentDay}, ${formatHours(timestamp)}`;
 }
 
 function showCurrentWeather(response) {
+  let currentTime = document.querySelector("#current-date");
+  currentTime.innerHTML = formatDate(response.data.dt * 1000);
+
   let currentDescription = response.data.weather[0].description;
   let showDescription = document.querySelector("#current-description");
 
@@ -65,11 +59,77 @@ function showCurrentWeather(response) {
   );
 }
 
+function formatHours(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+
+  let minutes = date.getMinutes();
+
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${hours}:${minutes}`;
+}
+
+function showForecast(response) {
+  console.log(response.data);
+
+  let threeHourForecast = document.querySelector("#forecast");
+  let forecast = null;
+  threeHourForecast.innerHTML = null;
+
+  for (let index = 0; index < 6; index++) {
+    forecast = response.data.list[index];
+    threeHourForecast.innerHTML += `
+        <div class="col-md-2">
+          <div class="card text-center">
+            <div class="card-body">
+              <h6>${formatHours(forecast.dt * 1000)}</h6>
+              <img
+                class="forecast-icon"
+                src="https://openweathermap.org/img/wn/${
+                  forecast.weather[0].icon
+                }@2x.png"
+                alt="clear"
+              />
+              <p class="card-text">
+                <small> <strong>${Math.round(
+                  forecast.main.temp_max
+                )}°</strong> | ${Math.round(forecast.main.temp_min)}° </small>
+              </p>
+            </div>
+          </div>
+        </div>
+  `;
+  }
+}
+
+function showLocationName(response) {
+  console.log(response.data);
+  let locationName = response.data.name;
+
+  let currentLocation = document.querySelector("#searched-location");
+  let apiKey = "3f5abe4ce673d5dda415df055d820a42";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${locationName}&units=metric&appid=${apiKey}`;
+
+  currentLocation.innerHTML = locationName;
+
+  axios.get(apiUrl).then(showCurrentWeather);
+}
+
 function search(city) {
   let apiKey = "3f5abe4ce673d5dda415df055d820a42";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(showLocationName);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showForecast);
 }
 
 function showSearchedLocation(event) {
@@ -80,18 +140,6 @@ function showSearchedLocation(event) {
 
   search(city);
   searchedLocation.innerHTML = `${city}`;
-}
-
-function showLocationName(response) {
-  let locationName = response.data.name;
-
-  let currentLocation = document.querySelector("#searched-location");
-  let apiKey = "3f5abe4ce673d5dda415df055d820a42";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${locationName}&units=metric&appid=${apiKey}`;
-
-  currentLocation.innerHTML = locationName;
-
-  axios.get(apiUrl).then(showCurrentWeather);
 }
 
 function currentCoordinates(position) {
@@ -140,12 +188,6 @@ function convertToFahrenheit(event) {
   degreesCelsius.classList.remove("active");
   degreesFahrenheit.classList.add("active");
 }
-
-let todaysDate = document.querySelector("#current-date");
-
-let now = new Date();
-
-todaysDate.innerHTML = formatDate(now);
 
 let searchBar = document.querySelector("#search-bar");
 

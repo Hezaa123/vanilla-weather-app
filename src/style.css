@@ -1,10 +1,13 @@
+h1 {
+  font-size: 45px;
+}
+
 h4 {
-  margin-bottom: 16px;
   opacity: 0.6;
 }
 
-h1 {
-  font-size: 45px;
+h6 {
+  margin-bottom: 0;
 }
 
 div ul {
@@ -51,26 +54,26 @@ div.container {
   cursor: default;
 }
 
-#current-weather-icon {
-  display: block;
-  margin: 0 auto;
-  width: 105px;
-}
-
 .card {
+  background-color: rgba(255, 255, 255, 0.2);
   border: none;
   margin-bottom: 1px;
-  opacity: 0.6;
   transition: all 100ms ease-in;
   padding: 0;
 }
 
 .card:hover {
-  opacity: 0.9;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .card-body {
   padding: 0;
+}
+
+.forecast-icon {
+  display: block;
+  margin: 0 auto;
+  width: 60px;
 }
 
 #background-image {
@@ -78,6 +81,12 @@ div.container {
   z-index: -1;
   left: 50%;
   max-width: 50%;
+}
+
+#current-weather-icon {
+  display: block;
+  margin: 0 auto;
+  width: 105px;
 }
 
 #current-description {

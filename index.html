@@ -30,6 +30,7 @@
   <body>
     <div class="container border p-4 mt-3 rounded">
       <img id="background-image" src="media/moon.png" />
+
       <form id="search-bar">
         <div class="input-group mb-3">
           <input
@@ -39,11 +40,13 @@
             id="search-location"
             placeholder="Search location"
           />
+
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="submit">
               <i class="fas fa-search"></i>
             </button>
           </div>
+
           <div class="input-group-append">
             <button
               id="geolocation-button"
@@ -93,80 +96,18 @@
         </div>
       </div>
 
-      <div class="row sixDaySummary">
+      <div id="forecast" class="row">
         <div class="col-md-2">
           <div class="card text-center">
             <div class="card-body">
-              <h6 class="weekDay">Thu</h6>
+              <h6></h6>
+              <img
+                class="forecast-icon"
+                src="https://openweathermap.org/img/wn/01n@2x.png"
+                alt="clear"
+              />
               <p class="card-text">
-                <i class="fas fa-cloud-sun-rain"></i>
-                <br />
-                <small> <strong>17°c</strong> | 14°c </small>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <div class="card text-center">
-            <div class="card-body">
-              <h6 class="weekDay">Fri</h6>
-              <p class="card-text">
-                <i class="fas fa-cloud"></i>
-                <br />
-                <small> <strong>17°c</strong> | 13°c </small>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <div class="card text-center">
-            <div class="card-body">
-              <h6 class="weekDay">Sat</h6>
-              <p class="card-text">
-                <i class="fas fa-cloud-sun"></i>
-                <br />
-                <small> <strong>17°c</strong> | 9°c </small>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <div class="card text-center">
-            <div class="card-body">
-              <h6 class="weekDay">Sun</h6>
-              <p class="card-text">
-                <i class="fas fa-cloud-showers-heavy"></i>
-                <br />
-                <small> <strong>18°c</strong> | 16°c </small>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <div class="card text-center">
-            <div class="card-body">
-              <h6 class="weekDay">Mon</h6>
-              <p class="card-text">
-                <i class="fas fa-cloud-sun"></i>
-                <br />
-                <small> <strong>18°c</strong> | 16°c </small>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <div class="card text-center">
-            <div class="card-body">
-              <h6 class="weekDay">Tue</h6>
-              <p class="card-text">
-                <i class="fas fa-cloud-sun"></i>
-                <br />
-                <small> <strong>22°c</strong> | 16°c </small>
+                <small> <strong></strong></small>
               </p>
             </div>
           </div>
