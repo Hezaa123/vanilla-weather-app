@@ -57,7 +57,7 @@ function showCurrentWeather(response) {
   let currentWeatherIcon = document.querySelector("#current-weather-icon");
   currentWeatherIcon.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   currentWeatherIcon.setAttribute(
     "alt",
@@ -65,22 +65,25 @@ function showCurrentWeather(response) {
   );
 }
 
+function search(city) {
+  let apiKey = "3f5abe4ce673d5dda415df055d820a42";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+
+  axios.get(apiUrl).then(showLocationName);
+}
+
 function showSearchedLocation(event) {
   event.preventDefault();
   let searchLocation = document.querySelector("#search-location");
   let searchedLocation = document.querySelector("#searched-location");
   let city = searchLocation.value;
-  let apiKey = "3f5abe4ce673d5dda415df055d820a42";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
+  search(city);
   searchedLocation.innerHTML = `${city}`;
-  axios.get(apiUrl).then(showCurrentWeather);
 }
 
 function showLocationName(response) {
   let locationName = response.data.name;
-
-  console.log(locationName);
 
   let currentLocation = document.querySelector("#searched-location");
   let apiKey = "3f5abe4ce673d5dda415df055d820a42";
@@ -147,6 +150,7 @@ todaysDate.innerHTML = formatDate(now);
 let searchBar = document.querySelector("#search-bar");
 
 searchBar.addEventListener("submit", showSearchedLocation);
+search("London");
 
 let currentCelsiusTemperature = null;
 let currentTempMax = null;
