@@ -59,28 +59,20 @@
         </div>
       </form>
 
-      <h4>
-        <span id="current-date"></span>
-        -
-        <span id="current-description" class="weatherDescription"></span>
-      </h4>
-
-      <p class="temperature-unit">
-        <a href="#" id="celsius-link" class="unit active">°C</a>
-        |
-        <a href="#" id="fahrenheit-link" class="unit">°F</a>
-      </p>
+      <h1 id="searched-location"></h1>
+      <h4 id="current-date"></h4>
+      <h4 id="current-description"></h4>
 
       <div class="row 1">
-        <div class="col-5 currentLocation">
-          <h1 id="searched-location"></h1>
+        <div class="col-7 clearfix">
+          <img id="current-weather-icon" class="float-left" />
+          <span id="current-temperature" class="float-left"></span>
+          <span class="temperature-unit float-left">
+            <a href="#" id="celsius-link" class="unit active">°C</a>
+            |
+            <a href="#" id="fahrenheit-link" class="unit">°F</a>
+          </span>
         </div>
-        <div class="col-7 current temperature">
-          <h1 id="current-temperature"></h1>
-        </div>
-      </div>
-
-      <div class="row 2">
         <div class="col-5 current details">
           <ul>
             <li>
@@ -91,12 +83,9 @@
             <li id="current-windspeed"></li>
           </ul>
         </div>
-        <div class="col-7">
-          <img id="current-weather-icon" />
-        </div>
       </div>
 
-      <div id="forecast" class="row">
+      <div id="three-hour-forecast" class="row">
         <div class="col-md-2">
           <div class="card text-center">
             <div class="card-body">
@@ -107,7 +96,8 @@
                 alt="clear"
               />
               <p class="card-text">
-                <small> <strong></strong></small>
+                <small class="forecast-temp-max"><strong></strong></small>
+                <small class="forecast-temp-min"></small>
               </p>
             </div>
           </div>

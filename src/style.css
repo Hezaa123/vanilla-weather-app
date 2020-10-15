@@ -36,8 +36,13 @@ div.container {
   max-width: 667px;
 }
 
-.searchLocation {
-  opacity: 0.6;
+.btn {
+  border: 1px solid rgba(178, 177, 188, 0.5);
+  transition: all 100ms ease-in-out;
+}
+
+.btn:hover {
+  background-color: rgba(73, 72, 74, 0.9);
 }
 
 .temperature-unit {
@@ -58,7 +63,7 @@ div.container {
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
   margin-bottom: 1px;
-  transition: all 100ms ease-in;
+  transition: all 100ms ease-in-out;
   padding: 0;
 }
 
@@ -83,10 +88,14 @@ div.container {
   max-width: 50%;
 }
 
+#search-location {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
 #current-weather-icon {
-  display: block;
-  margin: 0 auto;
-  width: 105px;
+  position: relative;
+  width: 90px;
+  line-height: 1;
 }
 
 #current-description {
@@ -98,7 +107,9 @@ div.container {
 }
 
 #current-temperature {
-  text-align: center;
+  font-size: 80px;
+  font-weight: 500;
+  line-height: 1;
 }
 
 #current-temp-max {

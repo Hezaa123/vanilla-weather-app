@@ -23,10 +23,10 @@ function showCurrentWeather(response) {
 
   showDescription.innerHTML = `${currentDescription}`;
 
-  let showCurrentTemperature = document.querySelector("#current-temperature");
-  currentCelsiusTemperature = Math.round(response.data.main.temp);
+  let showCurrentTemp = document.querySelector("#current-temperature");
+  currentCelsiusTemp = Math.round(response.data.main.temp);
 
-  showCurrentTemperature.innerHTML = `${currentCelsiusTemperature}°`;
+  showCurrentTemp.innerHTML = `${currentCelsiusTemp}`;
 
   let showCurrentMax = document.querySelector("#current-temp-max");
   currentTempMax = Math.round(response.data.main.temp_max);
@@ -79,12 +79,18 @@ function formatHours(timestamp) {
 function showForecast(response) {
   console.log(response.data);
 
-  let threeHourForecast = document.querySelector("#forecast");
+  let threeHourForecast = document.querySelector("#three-hour-forecast");
   let forecast = null;
+  let forecastTempMax = null;
+  let forecastTempMin = null;
+
   threeHourForecast.innerHTML = null;
 
   for (let index = 0; index < 6; index++) {
     forecast = response.data.list[index];
+    forecastTempMaxList[index] = forecast.main.temp_max;
+    forecastTempMinList[index] = forecast.main.temp_min;
+
     threeHourForecast.innerHTML += `
         <div class="col-md-2">
           <div class="card text-center">
@@ -98,9 +104,11 @@ function showForecast(response) {
                 alt="clear"
               />
               <p class="card-text">
-                <small> <strong>${Math.round(
-                  forecast.main.temp_max
-                )}°</strong> | ${Math.round(forecast.main.temp_min)}° </small>
+                <small class="forecast-temp-max"> 
+                  <strong>${Math.round(forecastTempMaxList[index])}°</strong>
+                </small> | <small class="forecast-temp-min">${Math.round(
+                  forecastTempMinList[index]
+                )}° </small>
               </p>
             </div>
           </div>
@@ -111,13 +119,14 @@ function showForecast(response) {
 
 function showLocationName(response) {
   console.log(response.data);
-  let locationName = response.data.name;
+  let cityName = response.data.name;
+  let countryName = response.data.sys.country;
 
   let currentLocation = document.querySelector("#searched-location");
   let apiKey = "3f5abe4ce673d5dda415df055d820a42";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${locationName}&units=metric&appid=${apiKey}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
 
-  currentLocation.innerHTML = locationName;
+  currentLocation.innerHTML = `${cityName}, ${countryName}`;
 
   axios.get(apiUrl).then(showCurrentWeather);
 }
@@ -158,13 +167,26 @@ function useGeolocation() {
 
 function convertToCelsius(event) {
   event.preventDefault();
-  let currentTemperature = document.querySelector("#current-temperature");
+  let currentTemp = document.querySelector("#current-temperature");
   let currentMax = document.querySelector("#current-temp-max");
   let currentMin = document.querySelector("#current-temp-min");
+  let forecastMaxList = document.querySelectorAll(".forecast-temp-max");
+  let forecastMinList = document.querySelectorAll(".forecast-temp-min");
 
-  currentTemperature.innerHTML = `${Math.round(currentCelsiusTemperature)}°`;
+  currentTemp.innerHTML = `${Math.round(currentCelsiusTemp)}`;
   currentMax.innerHTML = `${Math.round(currentTempMax)}°`;
   currentMin.innerHTML = `${Math.round(currentTempMin)}°`;
+  //forecastMax.innerHTML = `${Math.round(forecastTempMax)}°`;
+  //forecastMin.innerHTML = `${Math.round(forecastTempMin)}°`;
+
+  for (let index = 0; index < 6; index++) {
+    forecastMaxList[index].innerHTML = `${Math.round(
+      forecastTempMaxList[index]
+    )}°`;
+    forecastMinList[index].innerHTML = `${Math.round(
+      forecastTempMinList[index]
+    )}°`;
+  }
 
   degreesFahrenheit.classList.remove("active");
   degreesCelsius.classList.add("active");
@@ -172,18 +194,29 @@ function convertToCelsius(event) {
 
 function convertToFahrenheit(event) {
   event.preventDefault();
-  let currentTemperature = document.querySelector("#current-temperature");
+
+  let currentTemp = document.querySelector("#current-temperature");
   let currentMax = document.querySelector("#current-temp-max");
   let currentMin = document.querySelector("#current-temp-min");
-  let fahrenheitTemperature = Math.round(
-    (currentCelsiusTemperature * 9) / 5 + 32
-  );
-  let fahrenheitMax = Math.round((currentTempMax * 9) / 5 + 32);
-  let fahrenheitMin = Math.round((currentTempMin * 9) / 5 + 32);
+  let forecastMaxList = document.querySelectorAll(".forecast-temp-max");
+  let forecastMinList = document.querySelectorAll(".forecast-temp-min");
 
-  currentTemperature.innerHTML = `${fahrenheitTemperature}°`;
-  currentMax.innerHTML = `${fahrenheitMax}°`;
-  currentMin.innerHTML = `${fahrenheitMin}°`;
+  let currentFahrenheitTemp = Math.round((currentCelsiusTemp * 9) / 5 + 32);
+  let currentFahrenheitMax = Math.round((currentTempMax * 9) / 5 + 32);
+  let currentFahrenheitMin = Math.round((currentTempMin * 9) / 5 + 32);
+
+  currentTemp.innerHTML = `${currentFahrenheitTemp}`;
+  currentMax.innerHTML = `${currentFahrenheitMax}°`;
+  currentMin.innerHTML = `${currentFahrenheitMin}°`;
+
+  for (let index = 0; index < 6; index++) {
+    forecastMaxList[index].innerHTML = `${Math.round(
+      (forecastTempMaxList[index] * 9) / 5 + 32
+    )}°`;
+    forecastMinList[index].innerHTML = `${Math.round(
+      (forecastTempMinList[index] * 9) / 5 + 32
+    )}°`;
+  }
 
   degreesCelsius.classList.remove("active");
   degreesFahrenheit.classList.add("active");
@@ -194,9 +227,11 @@ let searchBar = document.querySelector("#search-bar");
 searchBar.addEventListener("submit", showSearchedLocation);
 search("London");
 
-let currentCelsiusTemperature = null;
+let currentCelsiusTemp = null;
 let currentTempMax = null;
 let currentTempMin = null;
+let forecastTempMaxList = [];
+let forecastTempMinList = [];
 
 let degreesCelsius = document.querySelector("#celsius-link");
 let degreesFahrenheit = document.querySelector("#fahrenheit-link");
