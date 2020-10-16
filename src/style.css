@@ -1,5 +1,7 @@
 h1 {
-  font-size: 45px;
+  font-size: 50px;
+  font-weight: 600;
+  margin-bottom: 0;
 }
 
 h4 {
@@ -11,9 +13,13 @@ h6 {
 }
 
 div ul {
-  font-size: 14px;
+  font-size: 15px;
   list-style: none;
   padding: 5px;
+}
+
+small {
+  font-size: 15px;
 }
 
 footer {
@@ -23,7 +29,7 @@ footer {
 }
 
 div.container {
-  font-family: "Play", sans-serif;
+  font-family: "Fredoka One", cursive;
   background-repeat: no-repeat;
   background-position: center;
   background: #c9ccd3;
@@ -33,7 +39,7 @@ div.container {
     rgba(0, 0, 0, 0.5) 100%
   );
   background-blend-mode: lighten;
-  max-width: 667px;
+  max-width: 690px;
 }
 
 .btn {
@@ -59,6 +65,11 @@ div.container {
   cursor: default;
 }
 
+.current-details {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
 .card {
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
@@ -81,20 +92,39 @@ div.container {
   width: 60px;
 }
 
+.forecast-temp-max {
+  font-weight: 900;
+}
+
+.forecast-temp-min {
+  opacity: 0.7;
+}
+
 #background-image {
+  opacity: 1;
   position: absolute;
-  z-index: -1;
-  left: 50%;
+  left: 52%;
+  top: 09%;
+  width: 260px;
   max-width: 50%;
 }
 
 #search-location {
-  background-color: rgba(255, 255, 255, 0.2);
+  opacity: 0.7;
+}
+
+#current-description {
+  font-size: 30px;
+}
+
+#current-date {
+  font-size: 17px;
+  padding-bottom: 10px;
 }
 
 #current-weather-icon {
   position: relative;
-  width: 90px;
+  width: 80px;
   line-height: 1;
 }
 
@@ -104,14 +134,19 @@ div.container {
 
 #searched-location {
   text-transform: capitalize;
+  width: 400px;
 }
 
 #current-temperature {
-  font-size: 80px;
-  font-weight: 500;
+  font-size: 70px;
+  font-weight: 600;
   line-height: 1;
 }
 
 #current-temp-max {
   font-weight: 900;
+}
+
+#current-temp-min {
+  opacity: 0.7;
 }

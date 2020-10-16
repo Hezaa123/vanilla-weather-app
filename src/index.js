@@ -1,3 +1,19 @@
+function formatHours(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${hours}:${minutes}`;
+}
+
 function formatDate(timestamp) {
   let date = new Date(timestamp);
   let days = [
@@ -10,8 +26,21 @@ function formatDate(timestamp) {
     "Saturday",
   ];
   let currentDay = days[date.getDay()];
+  let hours = date.getHours();
+  let backgroundImage = document.querySelector("#background-image");
 
-  return `${currentDay}, ${formatHours(timestamp)}`;
+  if (hours >= 5 && hours < 12) {
+    backgroundImage.setAttribute("src", "media/good-morning.png");
+  } else if (hours >= 12 && hours < 17) {
+    backgroundImage.setAttribute("src", "media/good-afternoon.png");
+  } else if (hours >= 17 && hours < 20) {
+    backgroundImage.setAttribute("src", "media/good-evening.png");
+  } else if (hours >= 20 || hours < 3) {
+    backgroundImage.setAttribute("src", "media/good-night.png");
+  } else if (hours >= 3 && hours < 5) {
+    backgroundImage.setAttribute("src", "media/mad-hour.png");
+  }
+  return `Last Updated: ${currentDay}, ${formatHours(timestamp)}`;
 }
 
 function showCurrentWeather(response) {
@@ -46,7 +75,7 @@ function showCurrentWeather(response) {
   let currentWindspeed = Math.round(response.data.wind.speed * 3.6);
   let showWindspeed = document.querySelector("#current-windspeed");
 
-  showWindspeed.innerHTML = `Windspeed: ${currentWindspeed}km/h`;
+  showWindspeed.innerHTML = `Windspeed: ${currentWindspeed} km/h`;
 
   let currentWeatherIcon = document.querySelector("#current-weather-icon");
   currentWeatherIcon.setAttribute(
@@ -59,30 +88,11 @@ function showCurrentWeather(response) {
   );
 }
 
-function formatHours(timestamp) {
-  let date = new Date(timestamp);
-  let hours = date.getHours();
-
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-
-  let minutes = date.getMinutes();
-
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-
-  return `${hours}:${minutes}`;
-}
-
 function showForecast(response) {
   console.log(response.data);
 
   let threeHourForecast = document.querySelector("#three-hour-forecast");
   let forecast = null;
-  let forecastTempMax = null;
-  let forecastTempMin = null;
 
   threeHourForecast.innerHTML = null;
 
@@ -105,7 +115,7 @@ function showForecast(response) {
               />
               <p class="card-text">
                 <small class="forecast-temp-max"> 
-                  <strong>${Math.round(forecastTempMaxList[index])}°</strong>
+                  ${Math.round(forecastTempMaxList[index])}°
                 </small> | <small class="forecast-temp-min">${Math.round(
                   forecastTempMinList[index]
                 )}° </small>
@@ -118,7 +128,6 @@ function showForecast(response) {
 }
 
 function showLocationName(response) {
-  console.log(response.data);
   let cityName = response.data.name;
   let countryName = response.data.sys.country;
 
@@ -144,11 +153,9 @@ function search(city) {
 function showSearchedLocation(event) {
   event.preventDefault();
   let searchLocation = document.querySelector("#search-location");
-  let searchedLocation = document.querySelector("#searched-location");
   let city = searchLocation.value;
 
   search(city);
-  searchedLocation.innerHTML = `${city}`;
 }
 
 function currentCoordinates(position) {
@@ -176,8 +183,6 @@ function convertToCelsius(event) {
   currentTemp.innerHTML = `${Math.round(currentCelsiusTemp)}`;
   currentMax.innerHTML = `${Math.round(currentTempMax)}°`;
   currentMin.innerHTML = `${Math.round(currentTempMin)}°`;
-  //forecastMax.innerHTML = `${Math.round(forecastTempMax)}°`;
-  //forecastMin.innerHTML = `${Math.round(forecastTempMin)}°`;
 
   for (let index = 0; index < 6; index++) {
     forecastMaxList[index].innerHTML = `${Math.round(
@@ -222,22 +227,20 @@ function convertToFahrenheit(event) {
   degreesFahrenheit.classList.add("active");
 }
 
-let searchBar = document.querySelector("#search-bar");
-
-searchBar.addEventListener("submit", showSearchedLocation);
-search("London");
-
 let currentCelsiusTemp = null;
 let currentTempMax = null;
 let currentTempMin = null;
 let forecastTempMaxList = [];
 let forecastTempMinList = [];
 
+let searchBar = document.querySelector("#search-bar");
+let geolocationButton = document.querySelector("#geolocation-button");
 let degreesCelsius = document.querySelector("#celsius-link");
 let degreesFahrenheit = document.querySelector("#fahrenheit-link");
 
+searchBar.addEventListener("submit", showSearchedLocation);
+geolocationButton.addEventListener("click", useGeolocation);
 degreesCelsius.addEventListener("click", convertToCelsius);
 degreesFahrenheit.addEventListener("click", convertToFahrenheit);
 
-let geolocationButton = document.querySelector("#geolocation-button");
-geolocationButton.addEventListener("click", useGeolocation);
+search("London");
