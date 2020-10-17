@@ -136,18 +136,25 @@ function showLocationName(response) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
 
   currentLocation.innerHTML = `${cityName}, ${countryName}`;
-
   axios.get(apiUrl).then(showCurrentWeather);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showForecast);
 }
 
 function search(city) {
   let apiKey = "3f5abe4ce673d5dda415df055d820a42";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(showLocationName);
-
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(showForecast);
+  axios
+    .get(apiUrl)
+    .then(showLocationName)
+    .catch(() => {
+      let searchLocation = document.querySelector("#search-location");
+      searchLocation.value = "";
+      searchLocation.setAttribute("placeholder", "Location not found");
+      search("London");
+    });
 }
 
 function showSearchedLocation(event) {
