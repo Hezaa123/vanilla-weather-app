@@ -130,12 +130,13 @@ function showForecast(response) {
 function showLocationName(response) {
   let cityName = response.data.name;
   let countryName = response.data.sys.country;
-
+  let searchLocation = document.querySelector("#search-location");
   let currentLocation = document.querySelector("#searched-location");
   let apiKey = "3f5abe4ce673d5dda415df055d820a42";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
 
   currentLocation.innerHTML = `${cityName}, ${countryName}`;
+  searchLocation.setAttribute("placeholder", "Search Location");
   axios.get(apiUrl).then(showCurrentWeather);
 
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=metric`;
@@ -155,9 +156,11 @@ function search(city) {
       searchLocation.setAttribute("placeholder", "Location not found");
       search("London");
     });
+
+  searchLocation.setAttribute("placeholder", "Search Location");
 }
 
-function showSearchedLocation(event) {
+function searchInputValue(event) {
   event.preventDefault();
   let searchLocation = document.querySelector("#search-location");
   let city = searchLocation.value;
@@ -245,7 +248,7 @@ let geolocationButton = document.querySelector("#geolocation-button");
 let degreesCelsius = document.querySelector("#celsius-link");
 let degreesFahrenheit = document.querySelector("#fahrenheit-link");
 
-searchBar.addEventListener("submit", showSearchedLocation);
+searchBar.addEventListener("submit", searchInputValue);
 geolocationButton.addEventListener("click", useGeolocation);
 degreesCelsius.addEventListener("click", convertToCelsius);
 degreesFahrenheit.addEventListener("click", convertToFahrenheit);

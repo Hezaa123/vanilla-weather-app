@@ -27,16 +27,17 @@ div.container {
   background-repeat: no-repeat;
   background-position: center;
   background: #c9ccd3;
-  background: linear-gradient(
-    -180deg,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
   background-blend-mode: lighten;
   max-width: 690px;
 }
 
 .btn {
+  background: linear-gradient(
+    -180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
   border: 1px solid rgba(178, 177, 188, 0.5);
   transition: all 100ms ease-in-out;
 }
@@ -65,7 +66,11 @@ div.container {
 }
 
 .card {
-  background-color: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(
+    -180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
   border: none;
   margin-bottom: 1px;
   transition: all 100ms ease-in-out;
