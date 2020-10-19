@@ -26,10 +26,10 @@ function formatDate(timestamp) {
     "Saturday",
   ];
   let currentDay = days[date.getDay()];
-  let hours = date.getHours();
-  let backgroundImage = document.querySelector("#background-image");
+  //let hours = date.getHours();
+  //let backgroundImage = document.querySelector("#background-image");
 
-  if (hours >= 5 && hours < 12) {
+  /**if (hours >= 5 && hours < 12) {
     backgroundImage.setAttribute("src", "media/good-morning.png");
   } else if (hours >= 12 && hours < 17) {
     backgroundImage.setAttribute("src", "media/good-afternoon.png");
@@ -39,7 +39,7 @@ function formatDate(timestamp) {
     backgroundImage.setAttribute("src", "media/good-night.png");
   } else if (hours >= 3 && hours < 5) {
     backgroundImage.setAttribute("src", "media/mad-hour.png");
-  }
+  }**/
   return `Last Updated: ${currentDay}, ${formatHours(timestamp)}`;
 }
 
