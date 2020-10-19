@@ -1,5 +1,5 @@
 h4 {
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 h6 {
@@ -27,22 +27,27 @@ div.container {
   background-repeat: no-repeat;
   background-position: center;
   background: #c9ccd3;
-  background: linear-gradient(
-    -180deg,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
   background-blend-mode: lighten;
   max-width: 690px;
 }
 
 .btn {
   border: 1px solid rgba(178, 177, 188, 0.5);
+  background: linear-gradient(
+    -180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
   transition: all 100ms ease-in-out;
 }
 
 .btn:hover {
-  background-color: rgba(73, 72, 74, 0.9);
+  background: linear-gradient(
+    -180deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
 }
 
 .temperature-unit {
@@ -65,7 +70,11 @@ div.container {
 }
 
 .card {
-  background-color: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(
+    -180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
   border: none;
   margin-bottom: 1px;
   transition: all 100ms ease-in-out;
@@ -73,7 +82,11 @@ div.container {
 }
 
 .card:hover {
-  background-color: rgba(255, 255, 255, 0.4);
+  background: linear-gradient(
+    -180deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
 }
 
 .card-body {
@@ -91,7 +104,7 @@ div.container {
 }
 
 .forecast-temp-min {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 #background-image {
@@ -133,7 +146,7 @@ div.container {
 
 #current-temperature {
   font-size: 70px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1;
 }
 
@@ -142,5 +155,5 @@ div.container {
 }
 
 #current-temp-min {
-  opacity: 0.7;
+  opacity: 0.8;
 }
