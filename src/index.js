@@ -150,6 +150,8 @@ function search(city) {
     .get(apiUrl)
     .then(showLocationName)
     .catch(() => {
+      let searchLocation = document.querySelector("#search-location");
+      searchLocation.value = "Location Not Found";
       search("London");
     });
 }
